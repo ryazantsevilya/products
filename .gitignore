@@ -1,1 +1,4 @@
 /vendor/
+.env
+/TZ/
+/config/config.php

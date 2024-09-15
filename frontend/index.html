@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Products</title>
+  </head>
+  <body>
+    <table>
+        <tr>
+            <th>ФИО</th>
+            <th>Название товара</th>
+            <th>Цена</th>
+        </tr>
+        <tbody id="ordersTable">
+
+        </tbody>
+    </table>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            userId = 2;
+
+            fetch('api/order?userId=' + userId)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById("ordersTable");
+
+                    data.data.forEach(
+                        (element) => {
+                                tr = document.createElement('tr');
+
+                                tdFio = document.createElement('td');
+                                tdProductName = document.createElement('td');
+                                tdPrice = document.createElement('td');
+
+                                tdFio.textContent = element.user.firstName + ' ' + element.user.secondName;
+                                tdProductName.textContent = element.product.title;
+                                tdPrice.textContent = element.product.price;
+
+                                tr.append(tdFio);
+                                tr.append(tdProductName);
+                                tr.append(tdPrice);
+
+                                tbody.append(tr);
+                            }
+                    );
+                });
+        });
+    </script>
+</body>
+</html>
