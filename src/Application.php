@@ -14,6 +14,8 @@ use App\Router\Router;
 
 class Application 
 {
+    private static Application $instance;
+
     private Router $router;
     private RequestInterface $request;
 
@@ -23,7 +25,7 @@ class Application
         FrontendController::class,
     ];
 
-    public function __construct()
+    private function __construct()
     {
         $this->router = new Router();
     }
@@ -74,5 +76,14 @@ class Application
         $request = new Request($requestMethod, $requestUrl, $content);
 
         $this->request = $request;
+    }
+
+    public static function getInstance(): self
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
     }
 }
